@@ -9,6 +9,12 @@ spring:
     deserialization:
       fail-on-unknown-properties: true
 
+  kafka:
+    bootstrap-servers: hospidata-kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   jpa:
     hibernate:
       ddl-auto: update
