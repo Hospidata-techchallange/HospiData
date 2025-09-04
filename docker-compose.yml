@@ -1,0 +1,100 @@
+version: "3.8"
+
+services:
+
+  gateway-service:
+    build:
+      dockerfile: Dockerfile.gateway-service
+    container_name: gateway-service
+    env_file:
+      - .env-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - hospidata-network
+    restart: always
+    depends_on:
+      - hospidata-db
+
+  history-service:
+    build:
+      dockerfile: Dockerfile.history-service
+    container_name: history-service
+    env_file:
+      - .env-history
+    ports:
+      - "8081:8080"
+    networks:
+      - hospidata-network
+    restart: always
+    depends_on:
+      - hospidata-db
+
+  appointment-service:
+    build:
+      dockerfile: Dockerfile.appointment-service
+    container_name: appointment-service
+    env_file:
+      - .env-appointment
+    ports:
+      - "8082:8080"
+    networks:
+      - hospidata-network
+    restart: always
+    depends_on:
+      - hospidata-db
+
+  notification-service:
+    build:
+      dockerfile: Dockerfile.notification-service
+    container_name: notification-service
+    env_file:
+      - .env-notification
+    # ports:
+      # - "8083:8080"
+    networks:
+      - hospidata-network
+    restart: always
+    depends_on:
+      - hospidata-db
+      - hospidata-kafka
+
+  hospidata-kafka:
+    build:
+      dockerfile: Dockerfile.hospidata-kafka
+    container_name: hospidata-kafka
+    env_file:
+      - .env
+    ports:
+      - "9092:9092"
+      - "9093:9093"  
+      - "9094:9094"   
+    volumes:
+      - kafka_hd_data:/bitnami/kafka
+    networks:
+      - hospidata-network
+    restart: always
+    # depends_on:
+    #   - hospidata-db
+
+  hospidata-db:
+    build:
+      dockerfile: Dockerfile.hospidata-db
+    container_name: hospidata-db
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_hd_data:/var/lib/mysql
+    networks:
+      - hospidata-network
+    restart: always
+
+volumes:
+  mariadb_hd_data:
+  kafka_hd_data:
+
+networks:
+  hospidata-network:
+    driver: bridge
