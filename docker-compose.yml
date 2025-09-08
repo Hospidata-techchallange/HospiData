@@ -14,7 +14,8 @@ services:
       - hospidata-network
     restart: always
     depends_on:
-      - hospidata-db
+      hospidata-db:
+        condition: service_healthy
 
   history-service:
     build:
@@ -28,7 +29,8 @@ services:
       - hospidata-network
     restart: always
     depends_on:
-      - hospidata-db
+      hospidata-db:
+        condition: service_healthy
 
   appointment-service:
     build:
@@ -42,7 +44,8 @@ services:
       - hospidata-network
     restart: always
     depends_on:
-      - hospidata-db
+      hospidata-db:
+        condition: service_healthy
 
   notification-service:
     build:
@@ -50,14 +53,14 @@ services:
     container_name: notification-service
     env_file:
       - .env-notification
-    # ports:
-      # - "8083:8080"
     networks:
       - hospidata-network
     restart: always
     depends_on:
-      - hospidata-db
-      - hospidata-kafka
+      hospidata-db:
+        condition: service_healthy
+      hospidata-kafka:
+        condition: service_started
 
   hospidata-kafka:
     build:
@@ -67,15 +70,13 @@ services:
       - .env
     ports:
       - "9092:9092"
-      - "9093:9093"  
-      - "9094:9094"   
+      - "9093:9093"
+      - "9094:9094"
     volumes:
       - kafka_hd_data:/bitnami/kafka
     networks:
       - hospidata-network
     restart: always
-    # depends_on:
-    #   - hospidata-db
 
   hospidata-db:
     build:
@@ -90,6 +91,12 @@ services:
     networks:
       - hospidata-network
     restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   mariadb_hd_data:

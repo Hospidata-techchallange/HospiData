@@ -1,16 +1,25 @@
 FROM maven:3.9-eclipse-temurin-21-alpine AS builder
 
 WORKDIR /build
+
+# 1. Copia apenas o pom.xml
 COPY ./gateway-service/pom.xml ./
+
+# 2. Baixa as dependências. O Docker vai guardar essa camada em cache!
+RUN mvn dependency:go-offline
+
+# 3. Agora sim, copia o código fonte
 COPY ./gateway-service/src ./src
+
+# 4. Compila o projeto. Maven usará as dependências do cache.
 RUN mvn clean install -DskipTests
 
+# --- Estágio Final (sem alterações) ---
 FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 COPY --from=builder /build/target/gateway-service-1.0.0.jar app.jar
 
-# copia o .env pro container
 COPY .env ./
 
 RUN mkdir -p /app/logs
