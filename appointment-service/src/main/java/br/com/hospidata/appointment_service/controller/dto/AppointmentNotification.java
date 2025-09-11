@@ -1,12 +1,10 @@
 package br.com.hospidata.appointment_service.controller.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record AppointmentRequest(
-        //UUID appointmentId,
+public record AppointmentNotification (
+        UUID appointmentId,
         LocalDateTime scheduledDate,
         UUID patientId,
         String patientName,
@@ -14,4 +12,5 @@ public record AppointmentRequest(
         UUID doctorId,
         String doctorName,
         String doctorEmail
-) {}
+) {
+}

@@ -3,27 +3,28 @@ package br.com.hospidata.appointment_service.entity;
 import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_appointment")
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_appointment")
-    private Long id;
+    private UUID id;
 
     @Column(name = "id_patient", nullable = false)
-    private Long patientId;
+    private UUID patientId;
 
     @Column(name = "id_doctor", nullable = false)
-    private Long doctorId;
+    private UUID doctorId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AppointmentStatus status;
 
-    @Column(nullable = false)
+    @Column(nullable = false , updatable = false)
     private LocalDateTime firstScheduledDate;
 
     @Column(nullable = false)
@@ -34,27 +35,27 @@ public class Appointment {
 
     private LocalDateTime lastUpdatedAt;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Long getPatientId() {
+    public UUID getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(UUID patientId) {
         this.patientId = patientId;
     }
 
-    public Long getDoctorId() {
+    public UUID getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(UUID doctorId) {
         this.doctorId = doctorId;
     }
 

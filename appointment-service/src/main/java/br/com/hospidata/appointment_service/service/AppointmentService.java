@@ -1,74 +1,60 @@
 package br.com.hospidata.appointment_service.service;
 
+import br.com.hospidata.appointment_service.controller.dto.AppointmentNotification;
+import br.com.hospidata.appointment_service.controller.dto.AppointmentRequest;
 import br.com.hospidata.appointment_service.entity.Appointment;
+import br.com.hospidata.appointment_service.entity.OutboxEvent;
 import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
 import br.com.hospidata.appointment_service.repository.AppointmentRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.hospidata.appointment_service.mapper.AppointmentMapper;
+import br.com.hospidata.appointment_service.repository.OutboxEventRepository;
+import br.com.hospidata.appointment_service.utils.JsonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final OutboxEventRepository outboxEventRepository;
     private final KafkaTemplate<String, Appointment> kafkaTemplate;
     private static final String KAFKA_TOPIC = "notification-topic";
+    private final AppointmentMapper mapper;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, KafkaTemplate<String, Appointment> kafkaTemplate) {
+    public AppointmentService(AppointmentRepository appointmentRepository, OutboxEventRepository outboxEventRepository , KafkaTemplate<String, Appointment> kafkaTemplate , AppointmentMapper mapper) {
         this.appointmentRepository = appointmentRepository;
+        this.outboxEventRepository = outboxEventRepository;
         this.kafkaTemplate = kafkaTemplate;
+        this.mapper = mapper;
     }
 
-    public Appointment createAppointment(Appointment appointment) {
+
+    public Appointment createAppointment( AppointmentRequest appointmentRequest) {
+
+        Appointment appointment = mapper.toEntity(appointmentRequest);
         LocalDateTime now = LocalDateTime.now();
+
         appointment.setCreatedAt(now);
         appointment.setLastUpdatedAt(now);
-        appointment.setFirstScheduledDate(appointment.getScheduledDate());
         appointment.setStatus(AppointmentStatus.SCHEDULED);
 
-        Appointment savedAppointment = appointmentRepository.save(appointment);
+         var appointmentSave = appointmentRepository.save(appointment);
 
-        kafkaTemplate.send(KAFKA_TOPIC, savedAppointment);
+         var appointmentNotification = mapper.toNotification(appointmentRequest , appointmentSave.getId());
 
-        return savedAppointment;
-    }
+        OutboxEvent outboxEvent = outboxEventRepository.save(new OutboxEvent(
+                "Appointment",
+                appointmentSave.getId(),
+                JsonUtils.toJson(appointmentNotification),
+                "APPOINTMENT_CREATED",
+                now,
+                false
+        ));
 
-    public Optional<Appointment> findAppointmentById(Long id) {
-        return appointmentRepository.findById(id);
-    }
+        return appointmentSave;
 
-    public List<Appointment> findAllAppointments() {
-        return appointmentRepository.findAll();
-    }
-
-    public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
-        Appointment existingAppointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found with id: " + id));
-
-        existingAppointment.setScheduledDate(appointmentDetails.getScheduledDate());
-        existingAppointment.setStatus(appointmentDetails.getStatus());
-        existingAppointment.setLastUpdatedAt(LocalDateTime.now());
-
-        Appointment updatedAppointment = appointmentRepository.save(existingAppointment);
-
-        kafkaTemplate.send(KAFKA_TOPIC, updatedAppointment);
-
-        return updatedAppointment;
-    }
-
-    public void cancelAppointment(Long id) {
-        Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found with id: " + id));
-
-        appointment.setStatus(AppointmentStatus.CANCELED);
-        appointment.setLastUpdatedAt(LocalDateTime.now());
-
-        Appointment canceledAppointment = appointmentRepository.save(appointment);
-
-        kafkaTemplate.send(KAFKA_TOPIC, canceledAppointment);
     }
 }

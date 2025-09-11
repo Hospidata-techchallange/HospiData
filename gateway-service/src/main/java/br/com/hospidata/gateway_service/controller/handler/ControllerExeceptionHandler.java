@@ -5,6 +5,7 @@ import br.com.hospidata.gateway_service.controller.dto.ErrorResponseInternal;
 import br.com.hospidata.gateway_service.controller.dto.ValidationError;
 import br.com.hospidata.gateway_service.service.exceptions.DuplicateKeyException;
 import br.com.hospidata.gateway_service.service.exceptions.ResourceNotFoundException;
+import br.com.hospidata.gateway_service.service.exceptions.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,22 @@ public class ControllerExeceptionHandler {
         log.warn("Duplicate key violation at [{} {}] - Reason: {}", method, path, e.getMessage());
 
         return ResponseEntity.status(status).body(new ErrorResponse(Instant.now() , status , e.getMessage() , method , path));
+
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handlerDuplicateEmailException (
+            UnauthorizedException e,
+            HttpServletRequest request
+    ) {
+
+        var status = HttpStatus.UNAUTHORIZED.value();
+        var method = request.getMethod();
+        var path = request.getRequestURI();
+
+        log.warn("Unathorized Exeception [{} {}] - Reason: {}", method, path, e.getMessage());
+
+        return ResponseEntity.status(status).body(new ErrorResponse(Instant.now() , status , e.getMessage(), method , path));
 
     }
 

@@ -1,6 +1,7 @@
 package br.com.hospidata.gateway_service.service;
 
 import br.com.hospidata.gateway_service.controller.dto.ChangePasswordRequest;
+import br.com.hospidata.gateway_service.controller.dto.UserResponse;
 import br.com.hospidata.gateway_service.entity.User;
 import br.com.hospidata.gateway_service.repository.UserRepository;
 import br.com.hospidata.gateway_service.service.exceptions.DuplicateKeyException;
@@ -80,4 +81,8 @@ public class UserService {
         repository.save(user);
     }
 
+    public User findUserByEmail(String email) {
+        return repository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+    }
 }
