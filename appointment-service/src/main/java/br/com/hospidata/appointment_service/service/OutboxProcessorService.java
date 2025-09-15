@@ -5,6 +5,7 @@ import br.com.hospidata.appointment_service.repository.OutboxEventRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,15 +20,18 @@ public class OutboxProcessorService {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Logger log = LoggerFactory.getLogger(OutboxProcessorService.class);
 
+    @Value("${appointments.batch-size}")
+    private int MAX_APPOINTMENTS_TO_PROCESS;
+
     public OutboxProcessorService(OutboxEventRepository repository, KafkaTemplate<String, String> kafkaTemplate) {
         this.repository = repository;
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Scheduled(fixedDelay = 5000)
+    //@Scheduled(fixedDelay = 5000)
     @Transactional
     public void processOutboxEvents() {
-        List<OutboxEvent> events = repository.findAllByProcessedFalse();
+        List<OutboxEvent> events = repository.findUnprocessed(MAX_APPOINTMENTS_TO_PROCESS);
 
         for (OutboxEvent event : events) {
             try {

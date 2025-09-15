@@ -1,10 +1,11 @@
-package br.com.hospidata.appointment_service.controller.dto;
+package br.com.hospidata.gateway_service.controller.dto;
 
-import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
+import br.com.hospidata.gateway_service.entity.enums.AppointmentStatus;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record AppointmentResponse(
+public record AppointmentResponse (
         UUID id,
         UUID patientId,
         String patientName,
@@ -17,4 +18,5 @@ public record AppointmentResponse(
         LocalDateTime scheduledDate,
         LocalDateTime createdAt,
         LocalDateTime lastUpdatedAt
-) {}
+) {
+}

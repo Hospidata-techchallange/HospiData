@@ -14,11 +14,23 @@ public class Appointment {
     @Column(name = "id_appointment")
     private UUID id;
 
-    @Column(name = "id_patient", nullable = false)
+    @Column(name = "patient_id", nullable = false)
     private UUID patientId;
 
-    @Column(name = "id_doctor", nullable = false)
+    @Column(name = "patient_name", nullable = false)
+    private String patientName;
+
+    @Column(name = "patient_email", nullable = false)
+    private String patientEmail;
+
+    @Column(name = "doctor_id", nullable = false)
     private UUID doctorId;
+
+    @Column(name = "doctor_name", nullable = false)
+    private String doctorName;
+
+    @Column(name = "doctor_email", nullable = false)
+    private String doctorEmail;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -51,12 +63,44 @@ public class Appointment {
         this.patientId = patientId;
     }
 
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientEmail() {
+        return patientEmail;
+    }
+
+    public void setPatientEmail(String emailPatient) {
+        this.patientEmail = emailPatient;
+    }
+
     public UUID getDoctorId() {
         return doctorId;
     }
 
     public void setDoctorId(UUID doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getDoctorEmail() {
+        return doctorEmail;
+    }
+
+    public void setDoctorEmail(String doctorEmail) {
+        this.doctorEmail = doctorEmail;
     }
 
     public AppointmentStatus getStatus() {

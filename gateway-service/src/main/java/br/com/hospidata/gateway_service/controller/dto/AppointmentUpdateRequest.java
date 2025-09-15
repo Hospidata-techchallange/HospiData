@@ -1,8 +1,9 @@
-package br.com.hospidata.appointment_service.controller.dto;
+package br.com.hospidata.gateway_service.controller.dto;
 
-import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
+import br.com.hospidata.gateway_service.entity.enums.AppointmentStatus;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,4 +16,5 @@ public record AppointmentUpdateRequest(
         UUID patientId,
         String patientName,
         String patientEmail
-) {}
+) {
+}

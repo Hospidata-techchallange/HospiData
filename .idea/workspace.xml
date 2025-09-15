@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/ErrorResponseInternal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/handler/ControllerExeceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/exceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/AppointmentRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/AppointmentRequestGateway.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/AppointmentUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/AppointmentUpdateRequestGateway.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/entity/enums/AppointmentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/mapper/gateway/AppointmentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/AppointmentGatewayService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env-appointment" beforeDir="false" afterPath="$PROJECT_DIR$/.env-appointment" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env-gateway" beforeDir="false" afterPath="$PROJECT_DIR$/.env-gateway" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/entity/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/entity/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/mapper/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/mapper/AppointmentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/AppointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/OutboxEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/OutboxEventRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/OutboxProcessorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/OutboxProcessorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/GatewayServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/GatewayServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="32gwsmwVVx5JJjsiZMNGBTIPBue" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.Run.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.AppointmentServiceApplication.executor": "Run",
+    "Spring Boot.GatewayServiceApplication.executor": "Run",
+    "git-widget-placeholder": "entrega-fase-1-m",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/matheusfcardoso/Documents/FIAP-TechChalenger/Hospidata/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\matheusfcardoso\Documents\FIAP-TechChalenger\Hospidata\appointment-service\src\main\java\br\com\hospidata\appointment_service\controller\dto" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.hospidata.gateway_service.controller.dto" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Docker.Run">
+    <configuration name="AppointmentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="appointment-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.hospidata.appointment_service.AppointmentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.hospidata.gateway_service.GatewayServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HistoryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="history-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.hospidata.history_service.HistoryServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="notification-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.hospidata.notification_service.NotificationServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Run" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="envFilePath" value="" />
+          <option name="commandLineOptions" value="--build" />
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.Run" />
+      <item itemvalue="Spring Boot.AppointmentServiceApplication" />
+      <item itemvalue="Spring Boot.GatewayServiceApplication" />
+      <item itemvalue="Spring Boot.HistoryServiceApplication" />
+      <item itemvalue="Spring Boot.NotificationServiceApplication" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="" />
+      <created>1757855733331</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757855733331</updated>
+      <workItem from="1757855734980" duration="12207000" />
+      <workItem from="1757878906831" duration="9853000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

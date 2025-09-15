@@ -23,3 +23,6 @@ spring:
       hibernate:
         format_sql: false
     database-platform: org.hibernate.dialect.MariaDBDialect
+
+appointments:
+  batch-size: 5

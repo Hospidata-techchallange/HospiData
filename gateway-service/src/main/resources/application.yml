@@ -17,3 +17,7 @@ spring:
       hibernate:
         format_sql: false
     database-platform: org.hibernate.dialect.MariaDBDialect
+
+clients:
+  appointment-service:
+    url: http://appointment-service:8080
