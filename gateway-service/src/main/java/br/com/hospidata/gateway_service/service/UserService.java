@@ -1,8 +1,11 @@
 package br.com.hospidata.gateway_service.service;
 
 import br.com.hospidata.gateway_service.controller.dto.ChangePasswordRequest;
+import br.com.hospidata.gateway_service.controller.dto.UserResponse;
 import br.com.hospidata.gateway_service.entity.User;
 import br.com.hospidata.gateway_service.repository.UserRepository;
+import br.com.hospidata.gateway_service.service.exceptions.DuplicateKeyException;
+import br.com.hospidata.gateway_service.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,90 +13,76 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+        this.repository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already in use");
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new DuplicateKeyException("User", "email", user.getEmail());
         }
+        var now = LocalDateTime.now();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(LocalDateTime.now());
-        user.setLastUpdatedAt(LocalDateTime.now());
+        user.setCreatedAt(now);
+        user.setLastUpdatedAt(now);
         user.setActive(true);
-        return userRepository.save(user);
+        return repository.save(user);
     }
 
-    public Optional<User> findUserById(Long id) {
-        return userRepository.findById(id);
+    public User findUserById(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
     }
 
     public List<User> findAllUsers(Boolean active) {
         if (active == null) {
-            return userRepository.findAll();
+            return repository.findAll();
         }
-        return userRepository.findByActive(active);
+        return repository.findByActive(active);
     }
 
-    public User updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+    public User updateUser(UUID id, User userToUpdate) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
 
-        userRepository.findByEmail(userDetails.getEmail()).ifPresent(existingUser -> {
+        repository.findByEmail(userToUpdate.getEmail()).ifPresent(existingUser -> {
             if (!existingUser.getId().equals(id)) {
-                throw new RuntimeException("Email already in use");
+                throw new DuplicateKeyException("User", "email", userToUpdate.getEmail());
             }
         });
 
-        user.setName(userDetails.getName());
-        user.setEmail(userDetails.getEmail());
-        user.setRole(userDetails.getRole());
+        user.setName(userToUpdate.getName());
+        user.setEmail(userToUpdate.getEmail());
+        user.setRole(userToUpdate.getRole());
         user.setLastUpdatedAt(LocalDateTime.now());
-        return userRepository.save(user);
+        return repository.save(user);
     }
 
-    public void deleteUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
-        userRepository.delete(user);
+    public void deleteUser(UUID id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
+        repository.delete(user);
     }
 
-    public void enableUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+    public void enableByUserId(UUID id) {
+        User user = repository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
         user.setActive(true);
         user.setLastUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
+        repository.save(user);
     }
 
-    public boolean validateLogin(String email, String rawPassword) {
-        return userRepository.findByEmail(email)
-                .map(user -> passwordEncoder.matches(rawPassword, user.getPassword()) && user.getActive())
-                .orElse(false);
-    }
-
-    public void changePassword(ChangePasswordRequest dto) {
-        User user = userRepository.findByEmail(dto.email())
-                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + dto.email()));
-
-        if (!passwordEncoder.matches(dto.currentPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid current password");
-        }
-        if (!dto.newPassword().equals(dto.confirmNewPassword())) {
-            throw new RuntimeException("New passwords do not match");
-        }
-
-        user.setPassword(passwordEncoder.encode(dto.newPassword()));
-        user.setLastUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
+    public User findUserByEmail(String email) {
+        return repository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
     }
 }

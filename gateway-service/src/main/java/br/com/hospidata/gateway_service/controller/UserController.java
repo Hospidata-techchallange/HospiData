@@ -1,7 +1,10 @@
 package br.com.hospidata.gateway_service.controller;
 
+import br.com.hospidata.gateway_service.controller.docs.UserControllerDoc;
 import br.com.hospidata.gateway_service.controller.dto.*;
-import br.com.hospidata.gateway_service.entity.User;
+import br.com.hospidata.gateway_service.entity.enums.Role;
+import br.com.hospidata.gateway_service.mapper.UserMappper;
+import br.com.hospidata.gateway_service.security.aspect.CheckRole;
 import br.com.hospidata.gateway_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -9,72 +12,70 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController implements UserControllerDoc {
 
-    private final UserService userService;
+    private final UserService service;
+    private final UserMappper mapper;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service , UserMappper mapper) {
+        this.service = service;
+        this.mapper = mapper;
     }
 
-    private UserResponse toResponse(User user) {
-        return new UserResponse(
-                user.getId(), user.getName(), user.getEmail(), user.getRole(),
-                user.getCreatedAt(), user.getLastUpdatedAt(), user.getActive()
-        );
-    }
-
+    @Override
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {
-        User user = new User();
-        user.setName(request.name());
-        user.setEmail(request.email());
-        user.setPassword(request.password());
-        user.setRole(request.role());
-
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(toResponse(createdUser), HttpStatus.CREATED);
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
+        var result = service.createUser(mapper.toEntity(userRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponse(result));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
-        return userService.findUserById(id)
-                .map(user -> ResponseEntity.ok(toResponse(user)))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
+    @Override
     @GetMapping
-    public ResponseEntity<List<UserResponse>> findAllUsers(@RequestParam(required = false) Boolean active) {
-        List<UserResponse> users = userService.findAllUsers(active).stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(users);
+    @CheckRole(Role.ADMIN)
+    public ResponseEntity<List<UserResponse>> getAllUsers(
+            @RequestParam(required = false) Boolean active) {
+        return ResponseEntity.ok(mapper.toListResponse(service.findAllUsers(active)));
     }
 
+    @Override
+    @GetMapping("/{id}")
+    @CheckRole(Role.ADMIN)
+    public ResponseEntity<UserResponse> findUserById(
+             @PathVariable UUID id) {
+        var result = service.findUserById(id);
+        return ResponseEntity.ok(mapper.toResponse(result));
+    }
+
+    @Override
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest request) {
-        User userDetails = new User();
-        userDetails.setName(request.name());
-        userDetails.setEmail(request.email());
-        userDetails.setRole(request.role());
-
-        User updatedUser = userService.updateUser(id, userDetails);
-        return ResponseEntity.ok(toResponse(updatedUser));
+    public ResponseEntity<UserResponse> updateUser(
+            @PathVariable UUID id,
+            @Valid @RequestBody UserRequestUpdate userRequest
+    ) {
+        var result = service.updateUser(id, mapper.toEntity(userRequest));
+        return ResponseEntity.ok(mapper.toResponse(result));
     }
 
+    @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<Void> deleteUserById(
+            @PathVariable UUID id
+    ){
+        service.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
+    @Override
     @PatchMapping("/enable/{id}")
-    public ResponseEntity<Void> enableUser(@PathVariable Long id) {
-        userService.enableUser(id);
+    public ResponseEntity<Void> enableUserById(
+             @PathVariable UUID id) {
+        service.enableByUserId(id);
         return ResponseEntity.noContent().build();
     }
+
 }

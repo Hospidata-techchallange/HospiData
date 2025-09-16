@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class NotificationListener {
 
     @KafkaListener(
-            topics = "notification-topic",
+            topics = "appointment-events",
             groupId = "notification-service"
     )
     public void consume(String message) {
