@@ -7,9 +7,12 @@ import br.com.hospidata.appointment_service.entity.Appointment;
 import br.com.hospidata.appointment_service.mapper.AppointmentMapper;
 import br.com.hospidata.appointment_service.service.AppointmentService;
 import jakarta.validation.Valid;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,6 +45,9 @@ public class AppointmentController {
         return ResponseEntity.ok(mapper.toResponse(appointmentUpdate));
     }
 
-
+    @GetMapping
+    ResponseEntity<List<AppointmentResponse>> getAllAppointments(Pageable pageable) {
+        return ResponseEntity.ok(mapper.toResponseList(appointmentService.getAllAppointments(pageable)));
+    }
 
 }

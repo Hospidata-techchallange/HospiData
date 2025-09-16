@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public record AppointmentUpdateRequest(
         @NotNull AppointmentStatus status,
+        String description,
         @Future @NotNull LocalDateTime scheduledDate,
         UUID doctorId,
         String doctorName,

@@ -10,6 +10,7 @@ import java.util.UUID;
 public record AppointmentUpdateRequestGateway(
         @NotNull AppointmentStatus status,
         @Future @NotNull LocalDateTime scheduledDate,
+        String description,
         @NotNull UUID doctorId,
         @NotNull UUID patientId
 ) {

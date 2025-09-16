@@ -10,6 +10,7 @@ import br.com.hospidata.gateway_service.repository.UserRepository;
 import br.com.hospidata.gateway_service.service.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -40,5 +41,9 @@ public class AppointmentGatewayService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", appointment.doctorId().toString()));
 
         return client.updateAppointment(id, mapper.toUpdateRequest(appointment, patient , doctor));
+    }
+
+    public List<AppointmentResponse> getAllAppointments() {
+        return client.getAllAppointments();
     }
 }

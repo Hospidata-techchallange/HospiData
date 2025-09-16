@@ -28,7 +28,7 @@ public class OutboxProcessorService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    //@Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     @Transactional
     public void processOutboxEvents() {
         List<OutboxEvent> events = repository.findUnprocessed(MAX_APPOINTMENTS_TO_PROCESS);
@@ -36,12 +36,13 @@ public class OutboxProcessorService {
         for (OutboxEvent event : events) {
             try {
                 log.info("Processing outbox event {}", event.getPayload());
-                kafkaTemplate.send("appointment-events", event.getAggregateId().toString(), event.getPayload());
+                kafkaTemplate.send("appointment-events", event.getAggregateId().toString(), event.getPayload())
+                        .get();
                 event.setProcessed(true);
                 event.setProcessedAt(LocalDateTime.now());
                 repository.save(event);
             } catch (Exception e) {
-                // Trabalhar nas exception depois.
+                log.error("Failed to publish outbox event to Kafka. Event ID: {}", event.getId(), e);
             }
         }
     }

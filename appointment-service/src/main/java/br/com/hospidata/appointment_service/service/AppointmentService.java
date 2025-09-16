@@ -1,6 +1,5 @@
 package br.com.hospidata.appointment_service.service;
 
-import br.com.hospidata.appointment_service.controller.dto.AppointmentRequest;
 import br.com.hospidata.appointment_service.controller.dto.AppointmentUpdateRequest;
 import br.com.hospidata.appointment_service.entity.Appointment;
 import br.com.hospidata.appointment_service.entity.OutboxEvent;
@@ -11,10 +10,12 @@ import br.com.hospidata.appointment_service.repository.OutboxEventRepository;
 import br.com.hospidata.appointment_service.service.exceptions.ResourceNotFoundException;
 import br.com.hospidata.appointment_service.utils.JsonUtils;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -82,6 +83,7 @@ public class AppointmentService {
         appointment.setLastUpdatedAt(LocalDateTime.now());
         appointment.setStatus(appointmentUpdateRequest.status());
         appointment.setScheduledDate(appointmentUpdateRequest.scheduledDate());
+        appointment.setDescription(appointmentUpdateRequest.description());
 
         if (appointmentUpdateRequest.doctorId() != null) {
             appointment.setDoctorId(appointmentUpdateRequest.doctorId());
@@ -96,5 +98,9 @@ public class AppointmentService {
         }
 
     };
+
+    public List<Appointment> getAllAppointments(Pageable pageable) {
+        return repository.findAll();
+    }
 
 }

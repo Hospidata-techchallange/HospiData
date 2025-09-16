@@ -14,6 +14,9 @@ public class Appointment {
     @Column(name = "id_appointment")
     private UUID id;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(name = "patient_id", nullable = false)
     private UUID patientId;
 
@@ -55,6 +58,14 @@ public class Appointment {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public UUID getPatientId() {
         return patientId;
     }
@@ -75,8 +86,8 @@ public class Appointment {
         return patientEmail;
     }
 
-    public void setPatientEmail(String emailPatient) {
-        this.patientEmail = emailPatient;
+    public void setPatientEmail(String patientEmail) {
+        this.patientEmail = patientEmail;
     }
 
     public UUID getDoctorId() {

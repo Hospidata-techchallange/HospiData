@@ -11,6 +11,7 @@ public record AppointmentUpdateRequest(
         @NotNull AppointmentStatus status,
         @Future @NotNull LocalDateTime scheduledDate,
         UUID doctorId,
+        String description,
         String doctorName,
         String doctorEmail,
         UUID patientId,

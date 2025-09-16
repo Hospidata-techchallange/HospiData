@@ -15,6 +15,7 @@ public class AppointmentMapper {
         return new AppointmentRequest(
             appointment.scheduledDate(),
             appointment.patientId(),
+            appointment.description(),
             patient.getName(),
             patient.getEmail(),
             appointment.doctorId(),
@@ -28,6 +29,7 @@ public class AppointmentMapper {
             appointment.status(),
             appointment.scheduledDate(),
             appointment.doctorId(),
+            appointment.description(),
             doctor.getName(),
             doctor.getEmail(),
             appointment.patientId(),

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public record AppointmentRequestGateway(
         LocalDateTime scheduledDate,
+        String description,
         UUID patientId,
         UUID doctorId
 ) {

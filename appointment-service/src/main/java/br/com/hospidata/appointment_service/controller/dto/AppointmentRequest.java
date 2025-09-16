@@ -8,6 +8,7 @@ import java.util.UUID;
 public record AppointmentRequest(
         //UUID appointmentId,
         LocalDateTime scheduledDate,
+        String description,
         UUID patientId,
         String patientName,
         String patientEmail,

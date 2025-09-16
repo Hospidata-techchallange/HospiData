@@ -8,6 +8,7 @@ import br.com.hospidata.appointment_service.entity.Appointment;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -15,6 +16,7 @@ public class AppointmentMapper {
 
     public Appointment toEntity(AppointmentRequest appointmentRequest) {
         Appointment appointment = new Appointment();
+        appointment.setDescription(appointmentRequest.description());
         appointment.setDoctorId(appointmentRequest.doctorId());
         appointment.setDoctorName(appointmentRequest.doctorName());
         appointment.setDoctorEmail(appointmentRequest.doctorEmail());
@@ -30,6 +32,7 @@ public class AppointmentMapper {
     public AppointmentNotification toNotification(Appointment appointment) {
         return new AppointmentNotification(
                 appointment.getId(),
+                appointment.getDescription(),
                 appointment.getScheduledDate(),
                 appointment.getStatus(),
                 appointment.getPatientId(),
@@ -44,6 +47,7 @@ public class AppointmentMapper {
     public AppointmentResponse toResponse(Appointment appointment) {
         return new AppointmentResponse(
                 appointment.getId(),
+                appointment.getDescription(),
                 appointment.getPatientId(),
                 appointment.getPatientName(),
                 appointment.getPatientEmail(),
@@ -56,5 +60,11 @@ public class AppointmentMapper {
                 appointment.getCreatedAt(),
                 appointment.getLastUpdatedAt()
         );
+    }
+
+    public List<AppointmentResponse> toResponseList(List<Appointment> allAppointments) {
+        return allAppointments.stream()
+                .map(this::toResponse)
+                .toList();
     }
 }

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public record AppointmentNotification (
         UUID appointmentId,
+        String description,
         LocalDateTime scheduledDate,
         AppointmentStatus status,
         UUID patientId,
