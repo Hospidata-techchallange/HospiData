@@ -4,13 +4,18 @@ import br.com.hospidata.appointment_service.controller.dto.AppointmentRequest;
 import br.com.hospidata.appointment_service.controller.dto.AppointmentResponse;
 import br.com.hospidata.appointment_service.controller.dto.AppointmentUpdateRequest;
 import br.com.hospidata.appointment_service.entity.Appointment;
+import br.com.hospidata.appointment_service.mapper.AppointmentMapper;
 import br.com.hospidata.appointment_service.service.AppointmentService;
 import jakarta.validation.Valid;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,57 +23,31 @@ import java.util.stream.Collectors;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+    private final AppointmentMapper mapper;
 
-    public AppointmentController(AppointmentService appointmentService) {
+    public AppointmentController(AppointmentService appointmentService, AppointmentMapper mapper) {
         this.appointmentService = appointmentService;
-    }
-
-    private AppointmentResponse toResponse(Appointment appointment) {
-        return new AppointmentResponse(
-                appointment.getId(), appointment.getPatientId(), appointment.getDoctorId(),
-                appointment.getStatus(), appointment.getScheduledDate(), appointment.getCreatedAt()
-        );
+        this.mapper = mapper;
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> createAppointment(@Valid @RequestBody AppointmentRequest request) {
-        Appointment appointment = new Appointment();
-        appointment.setPatientId(request.patientId());
-        appointment.setDoctorId(request.doctorId());
-        appointment.setScheduledDate(request.scheduledDate());
-
-        Appointment createdAppointment = appointmentService.createAppointment(appointment);
-        return new ResponseEntity<>(toResponse(createdAppointment), HttpStatus.CREATED);
+    public ResponseEntity<AppointmentResponse> createAppointment(@RequestBody @Valid AppointmentRequest appointmentRequest) {
+        Appointment appointmentCreated = appointmentService.createAppointment(mapper.toEntity(appointmentRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponse(appointmentCreated));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AppointmentResponse> findAppointmentById(@PathVariable Long id) {
-        return appointmentService.findAppointmentById(id)
-                .map(appointment -> ResponseEntity.ok(toResponse(appointment)))
-                .orElse(ResponseEntity.notFound().build());
+
+    @PutMapping("/{id}")
+    ResponseEntity<AppointmentResponse> updateAppointment(
+            @RequestBody @Valid AppointmentUpdateRequest appointmentUpdateRequest,
+            @PathVariable UUID id) {
+        Appointment appointmentUpdate = appointmentService.updateAppointment(id , appointmentUpdateRequest);
+        return ResponseEntity.ok(mapper.toResponse(appointmentUpdate));
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentResponse>> findAllAppointments() {
-        List<AppointmentResponse> appointments = appointmentService.findAllAppointments().stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(appointments);
+    ResponseEntity<List<AppointmentResponse>> getAllAppointments(Pageable pageable) {
+        return ResponseEntity.ok(mapper.toResponseList(appointmentService.getAllAppointments(pageable)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AppointmentResponse> updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentUpdateRequest request) {
-        Appointment appointmentDetails = new Appointment();
-        appointmentDetails.setStatus(request.status());
-        appointmentDetails.setScheduledDate(request.scheduledDate());
-
-        Appointment updatedAppointment = appointmentService.updateAppointment(id, appointmentDetails);
-        return ResponseEntity.ok(toResponse(updatedAppointment));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelAppointment(@PathVariable Long id) {
-        appointmentService.cancelAppointment(id);
-        return ResponseEntity.noContent().build();
-    }
 }

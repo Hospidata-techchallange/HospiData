@@ -21,5 +21,8 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     database-platform: org.hibernate.dialect.MariaDBDialect
+
+appointments:
+  batch-size: 5
