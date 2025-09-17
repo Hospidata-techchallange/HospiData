@@ -1,6 +1,7 @@
 package br.com.hospidata.notification_service.service;
 
 import br.com.hospidata.notification_service.dto.AppointmentNotification;
+import br.com.hospidata.notification_service.dto.enums.AppointmentStatus; // <-- IMPORTE O ENUM
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,10 @@ public class EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public void sendAppointmentConfirmation(AppointmentNotification notification) {
+        String statusEmPortugues = translateStatus(notification.status());
+
         String to = notification.patientEmail();
-        String subject = "Confirmação de consulta - " + notification.status();
+        String subject = "Confirmação de consulta - " + statusEmPortugues;
         String body = String.format(
                 "Olá %s,\\n\\n" +
                         "Sua consulta foi %s para o dia %s.\\n\\n" +
@@ -21,7 +24,7 @@ public class EmailService {
                         "Atenciosamente,\\n" +
                         "Hospidata",
                 notification.patientName(),
-                notification.status(),
+                statusEmPortugues, // <-- AQUI
                 notification.scheduledDate(),
                 notification.description(),
                 notification.doctorName()
@@ -33,5 +36,14 @@ public class EmailService {
         logger.info("Assunto: {}", subject);
         logger.info("Corpo: {}", body);
         logger.info("E-mail enviado!");
+    }
+
+    private String translateStatus(AppointmentStatus status) {
+        return switch (status) {
+            case SCHEDULED -> "agendada";
+            case CANCELED -> "cancelada";
+            case COMPLETED -> "concluída";
+            default -> status.name().toLowerCase();
+        };
     }
 }
