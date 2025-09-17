@@ -1,7 +1,6 @@
 package br.com.hospidata.gateway_service.controller.docs;
 
 import br.com.hospidata.gateway_service.controller.dto.LoginRequest;
-import br.com.hospidata.gateway_service.controller.dto.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,7 +8,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "Auth", description = "Endpoints de autenticação e tokens")
 @RequestMapping("/auth")
@@ -44,16 +46,4 @@ public interface AuthControllerDoc {
     })
     @PostMapping("/logout")
     ResponseEntity<Void> logout(HttpServletResponse response);
-
-    @Operation(summary = "Retorna informações do usuário logado")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Informações do usuário retornadas com sucesso"),
-            @ApiResponse(responseCode = "401", description = "Token inválido ou ausente"),
-    })
-    @GetMapping("/me")
-    ResponseEntity<UserResponse> me(
-            @Parameter(description = "Access token enviado via cookie")
-            @CookieValue(value = "accessToken", required = false) String accessToken
-    );
-
 }

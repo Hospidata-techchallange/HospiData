@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://hospidata-db:3306/notification_schema
+    url: jdbc:mariadb://localhost:3306/notification_schema
     username: hospidata-user
     password: password
     driver-class-name: org.mariadb.jdbc.Driver
@@ -28,14 +28,15 @@ spring:
       port: 8080
 
   kafka:
-    bootstrap-servers: hospidata-kafka:9092
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: notification-service
       auto-offset-reset: earliest
+      auto:
+        create:
+          topics:
+            enable=true:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: 'br.com.hospidata.notification_service.dto.**'
-        spring.json.value.default.type: 'br.com.hospidata.notification_service.dto.AppointmentNotification'
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     listener:
       ack-mode: record

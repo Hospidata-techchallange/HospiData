@@ -4,9 +4,6 @@ import br.com.hospidata.gateway_service.controller.docs.AuthControllerDoc;
 import br.com.hospidata.gateway_service.controller.dto.AuthResponse;
 import br.com.hospidata.gateway_service.controller.dto.ChangePasswordRequest;
 import br.com.hospidata.gateway_service.controller.dto.LoginRequest;
-import br.com.hospidata.gateway_service.controller.dto.UserResponse;
-import br.com.hospidata.gateway_service.entity.User;
-import br.com.hospidata.gateway_service.mapper.UserMappper;
 import br.com.hospidata.gateway_service.service.AuthService;
 import br.com.hospidata.gateway_service.service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -20,13 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController implements AuthControllerDoc {
 
     private final AuthService authService;
-    private final UserService userService;
-    private final UserMappper userMappper;
 
-    public AuthController(AuthService authService , UserService userService , UserMappper userMappper) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.userService = userService;
-        this.userMappper = userMappper;
     }
 
     @Override
@@ -97,12 +90,6 @@ public class AuthController implements AuthControllerDoc {
         response.addCookie(accessCookie);
 
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<UserResponse>  me(@CookieValue(value = "accessToken", required = false) String accessToken) {
-        User user = (userService.findUserByEmail(authService.getEmailFromAccessToken(accessToken)));
-        return ResponseEntity.ok().body(userMappper.toResponse(user));
     }
 
 }

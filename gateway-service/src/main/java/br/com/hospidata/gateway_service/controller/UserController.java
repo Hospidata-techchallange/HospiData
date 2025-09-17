@@ -2,9 +2,7 @@ package br.com.hospidata.gateway_service.controller;
 
 import br.com.hospidata.gateway_service.controller.docs.UserControllerDoc;
 import br.com.hospidata.gateway_service.controller.dto.*;
-import br.com.hospidata.gateway_service.entity.enums.Role;
 import br.com.hospidata.gateway_service.mapper.UserMappper;
-import br.com.hospidata.gateway_service.security.aspect.CheckRole;
 import br.com.hospidata.gateway_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -36,7 +34,6 @@ public class UserController implements UserControllerDoc {
 
     @Override
     @GetMapping
-    @CheckRole(Role.ADMIN)
     public ResponseEntity<List<UserResponse>> getAllUsers(
             @RequestParam(required = false) Boolean active) {
         return ResponseEntity.ok(mapper.toListResponse(service.findAllUsers(active)));
@@ -44,7 +41,6 @@ public class UserController implements UserControllerDoc {
 
     @Override
     @GetMapping("/{id}")
-    @CheckRole(Role.ADMIN)
     public ResponseEntity<UserResponse> findUserById(
              @PathVariable UUID id) {
         var result = service.findUserById(id);

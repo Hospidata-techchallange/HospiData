@@ -3,43 +3,27 @@ package br.com.hospidata.appointment_service.entity;
 import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_appointment")
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_appointment")
-    private UUID id;
+    private Long id;
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "id_patient", nullable = false)
+    private Long patientId;
 
-    @Column(name = "patient_id", nullable = false)
-    private UUID patientId;
-
-    @Column(name = "patient_name", nullable = false)
-    private String patientName;
-
-    @Column(name = "patient_email", nullable = false)
-    private String patientEmail;
-
-    @Column(name = "doctor_id", nullable = false)
-    private UUID doctorId;
-
-    @Column(name = "doctor_name", nullable = false)
-    private String doctorName;
-
-    @Column(name = "doctor_email", nullable = false)
-    private String doctorEmail;
+    @Column(name = "id_doctor", nullable = false)
+    private Long doctorId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AppointmentStatus status;
 
-    @Column(nullable = false , updatable = false)
+    @Column(nullable = false)
     private LocalDateTime firstScheduledDate;
 
     @Column(nullable = false)
@@ -50,68 +34,28 @@ public class Appointment {
 
     private LocalDateTime lastUpdatedAt;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public UUID getPatientId() {
+    public Long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(UUID patientId) {
+    public void setPatientId(Long patientId) {
         this.patientId = patientId;
     }
 
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public String getPatientEmail() {
-        return patientEmail;
-    }
-
-    public void setPatientEmail(String patientEmail) {
-        this.patientEmail = patientEmail;
-    }
-
-    public UUID getDoctorId() {
+    public Long getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(UUID doctorId) {
+    public void setDoctorId(Long doctorId) {
         this.doctorId = doctorId;
-    }
-
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
-
-    public String getDoctorEmail() {
-        return doctorEmail;
-    }
-
-    public void setDoctorEmail(String doctorEmail) {
-        this.doctorEmail = doctorEmail;
     }
 
     public AppointmentStatus getStatus() {
