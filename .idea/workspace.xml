@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/dto/AppointmentNotification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/dto/enums/AppointmentStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/NotificationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/NotificationListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env-notification" beforeDir="false" afterPath="$PROJECT_DIR$/.env-notification" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "guizs"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;guizs&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Hospidata-techchallange/HospiData.git",
-    "accountId": "487fa36a-e878-423e-8531-560416194ada"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Hospidata-techchallange/HospiData.git&quot;,
+    &quot;accountId&quot;: &quot;487fa36a-e878-423e-8531-560416194ada&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -67,7 +62,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.AppointmentServiceApplication.executor": "Run",
     "Spring Boot.GatewayServiceApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "entrega-fase-1-g",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/gferr/OneDrive/Guilherme/Pós-graduação/Fase 3/HospiData/notification-service/pom.xml",
