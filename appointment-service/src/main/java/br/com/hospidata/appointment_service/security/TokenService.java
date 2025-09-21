@@ -1,4 +1,4 @@
-package br.com.hospidata.gateway_service.service;
+package br.com.hospidata.appointment_service.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -6,7 +6,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -17,35 +16,11 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.access-token-validity}")
-    private long accessTokenValidity;
-
-    @Value("${jwt.refresh-token-validity}")
-    private long refreshTokenValidity;
-
     private SecretKey key;
 
     @PostConstruct
     public void init() {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
-    }
-
-    public String generateAccessToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenValidity))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-    }
-
-    public String generateRefreshToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenValidity))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
     }
 
     public boolean validateToken(String token) {
@@ -65,4 +40,5 @@ public class TokenService {
                 .getBody()
                 .getSubject();
     }
+
 }
