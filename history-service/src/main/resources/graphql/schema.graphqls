@@ -1,0 +1,11 @@
+type Query {
+    medicalHistoryByPatientId(patientId: ID!): [MedicalHistory]
+}
+
+type MedicalHistory {
+    id: ID!
+    patientId: ID!
+    doctorId: ID!
+    description: String!
+    createdAt: String!
+}
