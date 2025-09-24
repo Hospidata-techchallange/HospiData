@@ -5,14 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/entity/MedicalRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/repository/MedicalRecordRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/ValidationError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/security/TokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/FeignClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env-appointment" beforeDir="false" afterPath="$PROJECT_DIR$/.env-appointment" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env-gateway" beforeDir="false" afterPath="$PROJECT_DIR$/.env-gateway" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/NotificationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/NotificationListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/br/com/hospidata/notification_service/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/handler/ControllerExeceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/handler/ControllerExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +86,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.AppointmentServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;entrega-fase-1-g&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;entrega-fase-1&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/gferr/OneDrive/Guilherme/Pós-graduação/Fase 3/HospiData/notification-service/pom.xml&quot;,
@@ -85,7 +99,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.2643581&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -96,6 +110,7 @@
       <recent name="C:\Users\matheusfcardoso\Documents\FIAP-TechChalenger\Hospidata\appointment-service\src\main\java\br\com\hospidata\appointment_service\controller\dto" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.hospidata.appointment_service.controller.dto" />
       <recent name="br.com.hospidata.gateway_service.controller.dto" />
     </key>
   </component>
@@ -198,7 +213,20 @@
     </configuration>
     <list>
       <item itemvalue="Docker.Run" />
+      <item itemvalue="HTTP Request.All in generated-requests" />
+      <item itemvalue="Spring Boot.AppointmentServiceApplication" />
+      <item itemvalue="Spring Boot.GatewayServiceApplication" />
+      <item itemvalue="Spring Boot.HistoryServiceApplication" />
+      <item itemvalue="Spring Boot.NotificationServiceApplication" />
     </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -214,6 +242,7 @@
       <workItem from="1757984281785" duration="1583000" />
       <workItem from="1757985906900" duration="1629000" />
       <workItem from="1758029348813" duration="2489000" />
+      <workItem from="1758151276713" duration="8303000" />
     </task>
     <servers />
   </component>

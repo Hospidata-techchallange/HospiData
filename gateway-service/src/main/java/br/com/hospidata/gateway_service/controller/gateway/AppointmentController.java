@@ -42,8 +42,14 @@ public class AppointmentController {
 
     @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})
     @QueryMapping("appointments")
-    public List<AppointmentResponse> getAllAppointments() {
+    public List<AppointmentResponse> getAllAppointmentsGraphQL() {
         return service.getAllAppointments();
+    }
+
+    @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})
+    @GetMapping
+    public  ResponseEntity<List<AppointmentResponse>> getAllAppointments() {
+        return ResponseEntity.ok(service.getAllAppointments());
     }
 
 }

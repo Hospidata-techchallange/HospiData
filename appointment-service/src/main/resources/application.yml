@@ -24,5 +24,8 @@ spring:
         format_sql: false
     database-platform: org.hibernate.dialect.MariaDBDialect
 
+jwt:
+  secret: b6b096c3-e08f-40dd-b1f3-f8ff1711ec6e
+
 appointments:
   batch-size: 5

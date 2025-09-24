@@ -7,16 +7,14 @@ import br.com.hospidata.appointment_service.entity.Appointment;
 import br.com.hospidata.appointment_service.mapper.AppointmentMapper;
 import br.com.hospidata.appointment_service.service.AppointmentService;
 import jakarta.validation.Valid;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
+import jakarta.validation.Validator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appointments")
@@ -31,7 +29,9 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> createAppointment(@RequestBody @Valid AppointmentRequest appointmentRequest) {
+    public ResponseEntity<AppointmentResponse> createAppointment(
+            @Valid @RequestBody AppointmentRequest appointmentRequest
+    ) {
         Appointment appointmentCreated = appointmentService.createAppointment(mapper.toEntity(appointmentRequest));
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponse(appointmentCreated));
     }
@@ -39,7 +39,7 @@ public class AppointmentController {
 
     @PutMapping("/{id}")
     ResponseEntity<AppointmentResponse> updateAppointment(
-            @RequestBody @Valid AppointmentUpdateRequest appointmentUpdateRequest,
+            @Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest,
             @PathVariable UUID id) {
         Appointment appointmentUpdate = appointmentService.updateAppointment(id , appointmentUpdateRequest);
         return ResponseEntity.ok(mapper.toResponse(appointmentUpdate));
