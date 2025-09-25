@@ -25,4 +25,9 @@ public class HistoryService {
     public List<MedicalHistory> getMedicalHistoryByPatientId(UUID patientId) {
         return repository.findByPatientId(patientId);
     }
+
+    public List<MedicalHistory> getAllMedicalHistory() {
+        return repository.findAll();
+    }
+
 }

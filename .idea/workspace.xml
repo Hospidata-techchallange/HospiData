@@ -5,28 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/ValidationError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/security/TokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/FeignClientConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env-appointment" beforeDir="false" afterPath="$PROJECT_DIR$/.env-appointment" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/HistoryClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/HistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/HistoryGatewayService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env-gateway" beforeDir="false" afterPath="$PROJECT_DIR$/.env-gateway" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appointment-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/dto/AppointmentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/handler/ControllerExeceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/handler/ControllerExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/TokenService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/graphql/query.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/service/HistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/service/HistoryService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,13 +26,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Record" />
-        <option value="GraphQL File" />
         <option value="Class" />
+        <option value="GraphQL File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="entrega-fase-1-ma" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -86,7 +82,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.AppointmentServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;entrega-fase-1&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;entrega-fase-1-merge&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/gferr/OneDrive/Guilherme/Pós-graduação/Fase 3/HospiData/notification-service/pom.xml&quot;,
@@ -243,6 +239,11 @@
       <workItem from="1757985906900" duration="1629000" />
       <workItem from="1758029348813" duration="2489000" />
       <workItem from="1758151276713" duration="8303000" />
+      <workItem from="1758470060311" duration="3792000" />
+      <workItem from="1758574358907" duration="3082000" />
+      <workItem from="1758724225079" duration="10227000" />
+      <workItem from="1758755442504" duration="2209000" />
+      <workItem from="1758812507419" duration="1090000" />
     </task>
     <servers />
   </component>

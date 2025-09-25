@@ -19,6 +19,16 @@ type AppointmentResponse {
     lastUpdatedAt: String
 }
 
+type History {
+    id: ID!
+    patientId: ID!
+    doctorId: ID!
+    description: String
+    createdAt: String
+}
+
 type Query {
     appointments: [AppointmentResponse!]!
+    historyById(id: ID!): History
+    allHistories: [History!]!
 }

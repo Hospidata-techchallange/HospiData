@@ -26,3 +26,5 @@ spring:
 clients:
   appointment-service:
     url: http://appointment-service:8080
+  history-service:
+    url: http://history-service:8080
