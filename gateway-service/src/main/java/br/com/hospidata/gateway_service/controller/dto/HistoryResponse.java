@@ -10,6 +10,10 @@ public record HistoryResponse(
         UUID id,
         UUID patientId,
         UUID doctorId,
+        String patientName,
+        String patientEmail,
+        String doctorName,
+        String doctorEmail,
         String description,
         LocalDateTime createdAt
 ) {
