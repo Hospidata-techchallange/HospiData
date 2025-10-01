@@ -1,9 +1,12 @@
 package br.com.hospidata.gateway_service.client;
 
 import br.com.hospidata.gateway_service.config.FeignClientConfig;
+import br.com.hospidata.gateway_service.controller.dto.HistoryRequest;
 import br.com.hospidata.gateway_service.controller.dto.HistoryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,4 +20,6 @@ public interface HistoryClient {
     @GetMapping("/history")
     List<HistoryResponse> getAllHistory();
 
+    @PostMapping("/history")
+    HistoryResponse createHistory(@RequestBody HistoryRequest historyRequest);
 }
