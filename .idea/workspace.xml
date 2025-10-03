@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile.hospidata-kafka" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile.hospidata-kafka" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/HistoryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/HistoryClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +18,8 @@
       <list>
         <option value="Interface" />
         <option value="Record" />
-        <option value="Class" />
         <option value="GraphQL File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
