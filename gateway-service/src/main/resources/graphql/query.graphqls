@@ -23,6 +23,10 @@ type History {
     id: ID!
     patientId: ID!
     doctorId: ID!
+    patientName: String
+    patientEmail: String
+    doctorName: String
+    doctorEmail: String
     description: String
     createdAt: String
 }
