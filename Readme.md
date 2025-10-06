@@ -60,4 +60,84 @@ Com o Docker em execução, abra um terminal na raiz do projeto e execute o segu
 docker-compose up --build
 
 ```
-Divirta-se!
+Este comando irá construir as imagens de cada microsserviço e subir todos os contêineres necessários (serviços da aplicação, banco de dados e Kafka).
+
+Após a conclusão, a API estará acessível em `http://localhost:8080`.
+
+## Utilizando a API
+
+O **Gateway Service** é o ponto de entrada para todas as operações.
+
+### Documentação Interativa (Swagger)
+
+Para visualizar todos os endpoints de forma interativa e testá-los, acesse a documentação do Swagger em:
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+### Autenticação
+
+A API utiliza um sistema de autenticação baseado em JWT, com os tokens sendo gerenciados através de cookies `HttpOnly`.
+
+1.  **Login:** Para se autenticar, envie uma requisição `POST` depois de realizar seu cadastro ADMIN para `/auth/login` com o email e a senha de um usuário.
+    ```http
+    POST /auth/login
+    Content-Type: application/json
+
+    {
+      "email": "seu-email@exemplo.com",
+      "password": "sua-senha"
+    }
+    ```
+    Se as credenciais estiverem corretas, a API retornará cookies `accessToken` e `refreshToken` que serão usados automaticamente nas requisições subsequentes.
+
+2.  **Perfis de Usuário:** O sistema possui quatro perfis de acesso (`Role`): `ADMIN`, `DOCTOR`, `NURSE` e `PATIENT`. Determinados endpoints exigem perfis específicos para serem acessados.
+
+### Principais Endpoints
+
+Aqui está uma visão geral dos principais recursos da API. Todos os endpoints abaixo devem ser chamados em `http://localhost:8080`.
+
+#### Gerenciamento de Usuários
+
+| Método | Endpoint | Descrição |
+| :--- | :--- | :--- |
+| `POST` | `/users` | Cria um novo usuário (aberto para todos). |
+| `GET` | `/users` | Lista todos os usuários (requer perfil `ADMIN`). |
+| `GET` | `/users/{id}` | Busca um usuário por ID (requer perfil `ADMIN`). |
+| `PUT` | `/users/{id}` | Atualiza um usuário. |
+| `DELETE` | `/users/{id}` | Desativa (soft delete) um usuário. |
+| `PATCH`| `/users/enable/{id}` | Reativa um usuário. |
+
+#### Agendamentos
+
+| Método | Endpoint | Descrição |
+| :--- | :--- | :--- |
+| `POST` | `/appointments` | Cria um novo agendamento. |
+| `PUT` | `/appointments/{id}` | Atualiza o status, data ou descrição de um agendamento. |
+| `GET` | `/appointments` | Lista todos os agendamentos. |
+
+#### Histórico Médico
+
+| Método | Endpoint | Descrição |
+| :--- | :--- | :--- |
+| `GET` | `/history` | Retorna todos os registros de histórico médico. |
+
+### GraphQL API
+
+O Gateway também expõe uma API GraphQL para consultas mais complexas e flexíveis. O endpoint para GraphQL é `http://localhost:8080/graphql`.
+
+**Exemplo de Query: Buscar agendamentos e históricos**
+```graphql
+query {
+  appointments {
+    id
+    patientName
+    doctorName
+    scheduledDate
+    status
+  }
+  allHistories {
+    id
+    description
+    patientName
+    createdAt
+  }
+}
