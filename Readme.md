@@ -2,13 +2,13 @@
 
 Bem-vindo à documentação da HospiData API, um sistema de gerenciamento hospitalar, desenvolvido com uma arquitetura de microsserviços.
 
-## 📝 Visão Geral
+## Visão Geral
 
 O HospiData é uma solução completa para a gestão de informações em um ambiente hospitalar. Ele permite o gerenciamento de usuários (médicos, enfermeiros, pacientes), agendamento de consultas, manutenção de históricos médicos e um sistema de notificações para manter os pacientes informados.
 
 O projeto foi construído com serviços independentes que se comunicam de forma assíncrona, garantindo alta disponibilidade e resiliência.
 
-## ✨ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 Este projeto utiliza um conjunto de tecnologias para garantir performance e escalabilidade:
 
@@ -22,7 +22,7 @@ Este projeto utiliza um conjunto de tecnologias para garantir performance e esca
 * **Documentação da API:** Swagger (OpenAPI)
 * **Containerização:** Docker e Docker Compose
 
-## 🏛️ Arquitetura
+## Arquitetura
 
 A API é dividida em quatro microsserviços principais, um API Gateway que centraliza o acesso, um banco de dados e um broker de mensageria.
 
