@@ -26,12 +26,6 @@ Este projeto utiliza um conjunto de tecnologias para garantir performance e esca
 
 A API é dividida em quatro microsserviços principais, um API Gateway que centraliza o acesso, um banco de dados e um broker de mensageria.
 
-<br>
-
-![Arquitetura HospiData](https://i.imgur.com/8V5Y9n4.png)
-
-<br>
-
 * **Gateway Service (`gateway-service`):** É a porta de entrada para todas as requisições. Ele é responsável por:
     * Autenticação e autorização de usuários.
     * Roteamento de requisições para os microsserviços correspondentes.
@@ -65,4 +59,5 @@ Com o Docker em execução, abra um terminal na raiz do projeto e execute o segu
 ```bash
 docker-compose up --build
 
+```
 Divirta-se!
