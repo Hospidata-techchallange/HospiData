@@ -1,43 +1,66 @@
-HospiData
-HospiData é um projeto backend de um sistema de gerenciamento hospitalar, desenvolvido para a Pós Tech em Java da FIAP. A solução utiliza uma arquitetura de microsserviços com Spring Boot, MariaDB, Kafka e Docker.
+# HospiData API
 
-Requisitos
-Antes de executar, certifique-se de ter instalado:
+Bem-vindo à documentação da HospiData API, um sistema de gerenciamento hospitalar robusto e escalável, desenvolvido com uma arquitetura de microsserviços.
 
-Docker
+## 📝 Visão Geral
 
-Docker Compose
+O HospiData é uma solução completa para a gestão de informações em um ambiente hospitalar. Ele permite o gerenciamento de usuários (médicos, enfermeiros, pacientes), agendamento de consultas, manutenção de históricos médicos e um sistema de notificações para manter os pacientes informados.
 
-Executando a aplicação
-Após clonar o repositório, não é necessário configurar nenhum arquivo. Basta executar o comando na raiz do projeto:
+O projeto foi construído utilizando uma abordagem moderna de desenvolvimento, com serviços independentes que se comunicam de forma assíncrona, garantindo alta disponibilidade e resiliência.
 
-Bash
+## ✨ Tecnologias Utilizadas
 
+Este projeto utiliza um conjunto de tecnologias modernas para garantir performance e escalabilidade:
+
+* **Linguagem:** Java 21
+* **Framework:** Spring Boot 3
+* **Arquitetura:** Microsserviços
+* **Banco de Dados:** MariaDB
+* **Mensageria:** Apache Kafka
+* **Gateway de API:** Spring Cloud Gateway com OpenFeign
+* **Segurança:** Spring Security com JWT (Tokens via Cookies)
+* **Documentação da API:** Swagger (OpenAPI)
+* **Containerização:** Docker e Docker Compose
+
+## 🏛️ Arquitetura
+
+A API é dividida em quatro microsserviços principais, um API Gateway que centraliza o acesso, um banco de dados e um broker de mensageria.
+
+<br>
+
+![Arquitetura HospiData](https://i.imgur.com/8V5Y9n4.png)
+
+<br>
+
+* **Gateway Service (`gateway-service`):** É a porta de entrada para todas as requisições. Ele é responsável por:
+    * Autenticação e autorização de usuários.
+    * Roteamento de requisições para os microsserviços correspondentes.
+    * Servir a API GraphQL, que agrega dados de outros serviços.
+    * Atuar como um ponto único de acesso, simplificando a interação do cliente com a API.
+
+* **Appointment Service (`appointment-service`):** Gerencia todo o ciclo de vida dos agendamentos de consultas. Suas responsabilidades incluem:
+    * Criação, leitura, atualização e cancelamento de consultas.
+    * Publicação de eventos em um tópico do Kafka sempre que um agendamento é criado ou modificado.
+
+* **History Service (`history-service`):** Responsável por armazenar e gerenciar os históricos médicos dos pacientes.
+    * Cria novos registros de histórico associados a uma consulta.
+    * Permite a busca e a visualização de históricos.
+
+* **Notification Service (`notification-service`):** Opera de forma assíncrona, consumindo eventos do Kafka para notificar os usuários.
+    * Escuta o tópico de eventos de agendamento.
+    * Envia notificações por e-mail (simuladas no console) para os pacientes quando uma consulta é agendada, alterada ou cancelada.
+
+## 🚀 Começando
+
+Para executar o projeto em seu ambiente local, você precisará ter o **Docker** e o **Docker Compose** instalados.
+
+### 1. Configuração do Ambiente
+
+O projeto utiliza arquivos `.env` para gerenciar as variáveis de ambiente. Você precisará de um arquivo `.env` na raiz do projeto e um para cada serviço (`.env-gateway`, `.env-appointment`, etc.), preenchidos com as configurações de banco de dados, Kafka e JWT.
+
+### 2. Executando a Aplicação
+
+Com o Docker em execução, abra um terminal na raiz do projeto e execute o seguinte comando:
+
+```bash
 docker-compose up --build
-A aplicação estará disponível em: http://localhost:8080
-
-A documentação interativa do Swagger pode ser acessada em: http://localhost:8080/swagger-ui/index.html
-
-Estrutura do Projeto
-Dockerfile.*: Define as imagens para cada microsserviço da aplicação e para o banco de dados.
-
-docker-compose.yml: Orquestra a inicialização de todos os contêineres (API, Banco de Dados e Kafka).
-
-src/: Código-fonte de cada microsserviço, organizado em seus respectivos módulos.
-
-Endpoints da API (via Gateway)
-Método	Endpoint	Descrição
-POST	/auth/login	Autentica um usuário e retorna tokens em cookies.
-POST	/users	Cria um novo usuário.
-GET	/users	Lista todos os usuários (requer perfil ADMIN).
-PUT	/users/{id}	Atualiza os dados de um usuário.
-DELETE	/users/{id}	Desativa um usuário (soft delete).
-POST	/appointments	Cria um novo agendamento de consulta.
-GET	/appointments	Lista todos os agendamentos.
-PUT	/appointments/{id}	Atualiza um agendamento.
-GET	/history	Lista o histórico médico completo.
-GET	/history/search	Busca no histórico por appointmentId, patientId, etc.
-
-Export to Sheets
-Repositório
-🔗 https://github.com/Hospidata-techchallange/HospiData
