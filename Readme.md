@@ -1,16 +1,16 @@
 # HospiData API
 
-Bem-vindo à documentação da HospiData API, um sistema de gerenciamento hospitalar robusto e escalável, desenvolvido com uma arquitetura de microsserviços.
+Bem-vindo à documentação da HospiData API, um sistema de gerenciamento hospitalar, desenvolvido com uma arquitetura de microsserviços.
 
 ## 📝 Visão Geral
 
 O HospiData é uma solução completa para a gestão de informações em um ambiente hospitalar. Ele permite o gerenciamento de usuários (médicos, enfermeiros, pacientes), agendamento de consultas, manutenção de históricos médicos e um sistema de notificações para manter os pacientes informados.
 
-O projeto foi construído utilizando uma abordagem moderna de desenvolvimento, com serviços independentes que se comunicam de forma assíncrona, garantindo alta disponibilidade e resiliência.
+O projeto foi construído com serviços independentes que se comunicam de forma assíncrona, garantindo alta disponibilidade e resiliência.
 
 ## ✨ Tecnologias Utilizadas
 
-Este projeto utiliza um conjunto de tecnologias modernas para garantir performance e escalabilidade:
+Este projeto utiliza um conjunto de tecnologias para garantir performance e escalabilidade:
 
 * **Linguagem:** Java 21
 * **Framework:** Spring Boot 3
@@ -50,7 +50,7 @@ A API é dividida em quatro microsserviços principais, um API Gateway que centr
     * Escuta o tópico de eventos de agendamento.
     * Envia notificações por e-mail (simuladas no console) para os pacientes quando uma consulta é agendada, alterada ou cancelada.
 
-## 🚀 Começando
+## Como executar
 
 Para executar o projeto em seu ambiente local, você precisará ter o **Docker** e o **Docker Compose** instalados.
 
@@ -64,3 +64,5 @@ Com o Docker em execução, abra um terminal na raiz do projeto e execute o segu
 
 ```bash
 docker-compose up --build
+
+Divirta-se!
