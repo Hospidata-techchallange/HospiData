@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/history")
@@ -32,4 +33,15 @@ public class HistoryController implements HistoryControllerDoc {
     public ResponseEntity<List<MedicalHistory>> getAll() {
         return ResponseEntity.ok(service.getAllMedicalHistory());
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<MedicalHistory>> searchHistory(
+            @RequestParam(required = false) UUID appointmentId,
+            @RequestParam(required = false) UUID patientId,
+            @RequestParam(required = false) UUID doctorId
+    ) {
+        var result = service.searchMedicalHistory(appointmentId, patientId, doctorId);
+        return ResponseEntity.ok(result);
+    }
+
 }

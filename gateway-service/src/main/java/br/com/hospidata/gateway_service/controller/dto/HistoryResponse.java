@@ -8,6 +8,7 @@ import java.util.UUID;
 @SchemaMapping("History")
 public record HistoryResponse(
         UUID id,
+        UUID appointmentId,
         UUID patientId,
         UUID doctorId,
         String patientName,

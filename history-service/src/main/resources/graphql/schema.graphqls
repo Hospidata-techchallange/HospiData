@@ -4,6 +4,7 @@ type Query {
 
 type MedicalHistory {
     id: ID!
+    appointmentId : ID!
     patientId: ID!
     doctorId: ID!
     patientName: String!

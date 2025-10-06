@@ -13,6 +13,9 @@ public class MedicalHistory {
     @Column(name = "id_history")
     private UUID id;
 
+    @Column(name = "appointment_id", nullable = false)
+    private UUID appointmentId;
+
     @Column(name = "patient_id", nullable = false)
     private UUID patientId;
 
@@ -108,4 +111,8 @@ public class MedicalHistory {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public UUID getAppointmentId() { return appointmentId; }
+
+    public void setAppointmentId(UUID appointmentId) { this.appointmentId = appointmentId; }
 }

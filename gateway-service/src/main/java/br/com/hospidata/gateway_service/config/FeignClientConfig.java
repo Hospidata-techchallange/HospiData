@@ -2,6 +2,7 @@ package br.com.hospidata.gateway_service.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import feign.codec.ErrorDecoder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,4 +25,10 @@ public class FeignClientConfig {
             }
         };
     }
+
+    @Bean
+    public ErrorDecoder errorDecoder() {
+        return new FeignErrorDecoder();
+    }
+
 }

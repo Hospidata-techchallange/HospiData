@@ -21,6 +21,7 @@ type AppointmentResponse {
 
 type History {
     id: ID!
+    appointmentId : ID!
     patientId: ID!
     doctorId: ID!
     patientName: String
@@ -33,6 +34,12 @@ type History {
 
 type Query {
     appointments: [AppointmentResponse!]!
-    historyById(id: ID!): History
+
+    historySearch(
+        appointmentId: ID
+        patientId: ID
+        doctorId: ID
+    ): [History!]!
+
     allHistories: [History!]!
 }

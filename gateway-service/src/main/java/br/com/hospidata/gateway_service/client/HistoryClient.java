@@ -4,11 +4,10 @@ import br.com.hospidata.gateway_service.config.FeignClientConfig;
 import br.com.hospidata.gateway_service.controller.dto.HistoryRequest;
 import br.com.hospidata.gateway_service.controller.dto.HistoryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @FeignClient(
         name = "history-service",
@@ -22,4 +21,11 @@ public interface HistoryClient {
 
     @PostMapping("/history")
     HistoryResponse createHistory(@RequestBody HistoryRequest historyRequest);
+
+    @GetMapping("/history/search")
+    List<HistoryResponse> getHistorySearch(
+            @RequestParam(value = "appointmentId", required = false) UUID appointmentId,
+            @RequestParam(value = "doctorId", required = false) UUID doctorId,
+            @RequestParam(value = "patientId", required = false) UUID patientId
+    );
 }

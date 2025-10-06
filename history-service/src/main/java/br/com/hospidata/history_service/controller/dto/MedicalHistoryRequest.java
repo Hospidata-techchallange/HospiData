@@ -4,6 +4,7 @@ import java.util.UUID;
 
 
 public record MedicalHistoryRequest(
+        UUID appointmentId,
         UUID patientId,
         String patientName,
         String patientEmail,

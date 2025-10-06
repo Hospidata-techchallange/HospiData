@@ -55,6 +55,7 @@ public class AppointmentGatewayService {
             );
 
             HistoryRequest historyRequest = new HistoryRequest(
+                    id,
                     updatedAppointment.patientId(),
                     updatedAppointment.patientName(),
                     updatedAppointment.patientEmail(),
