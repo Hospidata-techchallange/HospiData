@@ -34,6 +34,7 @@ public class HistoryController implements HistoryControllerDoc {
         return ResponseEntity.ok(service.getAllMedicalHistory());
     }
 
+    @Override
     @GetMapping("/search")
     public ResponseEntity<List<MedicalHistory>> searchHistory(
             @RequestParam(required = false) UUID appointmentId,

@@ -38,7 +38,7 @@ public class HistoryController {
 
     @QueryMapping("historySearch")
     @CheckRole({Role.DOCTOR, Role.NURSE, Role.ADMIN})
-    public List<HistoryResponse> getHistoryByAppointmentId(
+    public List<HistoryResponse> getHistorySearch(
             @Argument UUID appointmentId,
             @Argument UUID doctorId,
             @Argument UUID patientId

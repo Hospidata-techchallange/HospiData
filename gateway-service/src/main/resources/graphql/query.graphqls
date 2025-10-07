@@ -33,7 +33,17 @@ type History {
 }
 
 type Query {
-    appointments: [AppointmentResponse!]!
+
+    appointmentById(
+        id : ID!
+    ) : AppointmentResponse!
+
+    appointmentSearch(
+        patientId: ID
+        doctorId: ID
+    ) : [AppointmentResponse!]!
+
+    allAppointments: [AppointmentResponse!]!
 
     historySearch(
         appointmentId: ID

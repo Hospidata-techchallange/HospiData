@@ -103,4 +103,42 @@ public class AppointmentService {
         return repository.findAll();
     }
 
+    public List<Appointment> getAllAppointments() {
+        return repository.findAll();
+    }
+
+    public List<Appointment> searchAppointments(UUID patientId, UUID doctorId) {
+        if (patientId != null && doctorId != null) {
+            List<Appointment> result = repository.findByPatientIdAndDoctorId(patientId, doctorId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException(
+                        "No Appointment found for patient ID: " + patientId + " and doctor ID: " + doctorId
+                );
+            }
+            return result;
+        } else if (patientId != null) {
+            List<Appointment> result = repository.findByPatientId(patientId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found for patient with ID: " + patientId);
+            }
+            return result;
+        } else if (doctorId != null) {
+            List<Appointment> result = repository.findByDoctorId(doctorId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found for doctor with ID: " + doctorId);
+            }
+            return result;
+        } else {
+            List<Appointment> result = getAllAppointments();
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found");
+            }
+            return result;
+        }
+
+    }
+
+    public Appointment getAppointmentById(UUID id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Appointment", "id", id.toString()));
+    }
 }

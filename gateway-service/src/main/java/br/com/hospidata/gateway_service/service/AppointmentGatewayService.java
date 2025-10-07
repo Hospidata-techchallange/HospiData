@@ -74,4 +74,12 @@ public class AppointmentGatewayService {
     public List<AppointmentResponse> getAllAppointments() {
         return appointmentClient.getAllAppointments();
     }
+
+    public List<AppointmentResponse> getAppointmentsSearch(UUID doctorId, UUID patientId) {
+        return appointmentClient.getAppointmentsSearch(doctorId, patientId);
+    }
+
+    public AppointmentResponse findAppointmentById(UUID id) {
+        return appointmentClient.findAppointmentById(id);
+    }
 }

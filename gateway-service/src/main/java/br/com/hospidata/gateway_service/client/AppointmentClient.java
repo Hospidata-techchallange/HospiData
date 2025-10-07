@@ -30,4 +30,15 @@ public interface AppointmentClient {
 
     @GetMapping("/appointments")
     List<AppointmentResponse> getAllAppointments();
+
+    @GetMapping("/appointments/search")
+    List<AppointmentResponse> getAppointmentsSearch(
+            @RequestParam(value = "doctorId", required = false) UUID doctorId,
+            @RequestParam(value = "patientId", required = false) UUID patientId
+    );
+
+    @GetMapping("/appointments/{id}")
+    AppointmentResponse findAppointmentById(
+            @PathVariable("id") UUID id
+    );
 }

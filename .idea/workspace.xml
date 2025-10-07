@@ -5,27 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e563d02-f643-462f-8f43-7d05ca21d562" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/FeignErrorDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/dto/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/dto/ErrorResponseInternal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/handler/ControllerExeceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/HistoryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/HistoryClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/FeignClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/config/FeignClientConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/dto/HistoryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/docs/AppointmentControllerDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/controller/docs/AppointmentControllerDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/repository/AppointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/exceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/appointment-service/src/main/java/br/com/hospidata/appointment_service/service/exceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/client/AppointmentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/AppointmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/controller/gateway/HistoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/AppointmentGatewayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/AppointmentGatewayService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/HistoryGatewayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/HistoryGatewayService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/exceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/br/com/hospidata/gateway_service/service/exceptions/ResourceNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/graphql/query.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/graphql/query.graphqls" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/dto/MedicalHistoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/dto/MedicalHistoryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/entity/MedicalHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/entity/MedicalHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/repository/MedicalHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/repository/MedicalHistoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/service/HistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/service/HistoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history-service/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/docs/HistoryControllerDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/history-service/src/main/java/br/com/hospidata/history_service/controller/docs/HistoryControllerDoc.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,7 +256,9 @@
       <workItem from="1759713353430" duration="436000" />
       <workItem from="1759713913905" duration="2986000" />
       <workItem from="1759716962431" duration="126000" />
-      <workItem from="1759717244117" duration="660000" />
+      <workItem from="1759717244117" duration="864000" />
+      <workItem from="1759785849916" duration="4388000" />
+      <workItem from="1759793015911" duration="3044000" />
     </task>
     <servers />
   </component>

@@ -7,6 +7,7 @@ import br.com.hospidata.gateway_service.controller.dto.AppointmentUpdateRequestG
 import br.com.hospidata.gateway_service.entity.enums.Role;
 import br.com.hospidata.gateway_service.security.aspect.CheckRole;
 import br.com.hospidata.gateway_service.service.AppointmentGatewayService;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +42,27 @@ public class AppointmentController {
     }
 
     @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})
-    @QueryMapping("appointments")
+    @QueryMapping("allAppointments")
     public List<AppointmentResponse> getAllAppointmentsGraphQL() {
         return service.getAllAppointments();
+    }
+
+
+    @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})
+    @QueryMapping("appointmentSearch")
+    public List<AppointmentResponse> getAppointmentsSearch(
+            @Argument UUID doctorId,
+            @Argument UUID patientId
+    ) {
+        return service.getAppointmentsSearch(doctorId , patientId);
+    }
+
+    @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})
+    @QueryMapping("appointmentById")
+    public AppointmentResponse getAppointment(
+            @Argument UUID id
+    ) {
+        return service.findAppointmentById(id);
     }
 
     @CheckRole({Role.ADMIN, Role.DOCTOR , Role.NURSE})

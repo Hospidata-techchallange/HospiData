@@ -20,11 +20,11 @@ import java.util.UUID;
 @RequestMapping("/appointments")
 public class AppointmentController implements AppointmentControllerDoc {
 
-    private final AppointmentService appointmentService;
+    private final AppointmentService service;
     private final AppointmentMapper mapper;
 
-    public AppointmentController(AppointmentService appointmentService, AppointmentMapper mapper) {
-        this.appointmentService = appointmentService;
+    public AppointmentController(AppointmentService service, AppointmentMapper mapper) {
+        this.service = service;
         this.mapper = mapper;
     }
 
@@ -33,7 +33,7 @@ public class AppointmentController implements AppointmentControllerDoc {
     public ResponseEntity<AppointmentResponse> createAppointment(
             @Valid @RequestBody AppointmentRequest appointmentRequest
     ) {
-        Appointment appointmentCreated = appointmentService.createAppointment(mapper.toEntity(appointmentRequest));
+        Appointment appointmentCreated = service.createAppointment(mapper.toEntity(appointmentRequest));
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponse(appointmentCreated));
     }
 
@@ -42,13 +42,30 @@ public class AppointmentController implements AppointmentControllerDoc {
     public ResponseEntity<AppointmentResponse> updateAppointment(
             @Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest,
             @PathVariable UUID id) {
-        Appointment appointmentUpdate = appointmentService.updateAppointment(id , appointmentUpdateRequest);
+        Appointment appointmentUpdate = service.updateAppointment(id , appointmentUpdateRequest);
         return ResponseEntity.ok(mapper.toResponse(appointmentUpdate));
     }
 
     @Override
     @GetMapping
     public ResponseEntity<List<AppointmentResponse>> getAllAppointments(Pageable pageable) {
-        return ResponseEntity.ok(mapper.toResponseList(appointmentService.getAllAppointments(pageable)));
+        return ResponseEntity.ok(mapper.toResponseList(service.getAllAppointments(pageable)));
     }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> getAppointmentById(@PathVariable UUID id) {
+        return ResponseEntity.ok(mapper.toResponse(service.getAppointmentById(id)));
+    }
+
+    @Override
+    @GetMapping("/search")
+    public ResponseEntity<List<AppointmentResponse>> searchAppointments(
+            @RequestParam(required = false) UUID patientId,
+            @RequestParam(required = false) UUID doctorId
+    ) {
+        var result = service.searchAppointments(patientId , doctorId);
+        return ResponseEntity.ok(mapper.toResponseList(result));
+    }
+
 }
