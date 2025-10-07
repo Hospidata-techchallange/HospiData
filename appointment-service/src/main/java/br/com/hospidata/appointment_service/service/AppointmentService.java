@@ -1,74 +1,144 @@
 package br.com.hospidata.appointment_service.service;
 
+import br.com.hospidata.appointment_service.controller.dto.AppointmentUpdateRequest;
 import br.com.hospidata.appointment_service.entity.Appointment;
+import br.com.hospidata.appointment_service.entity.OutboxEvent;
 import br.com.hospidata.appointment_service.entity.enums.AppointmentStatus;
 import br.com.hospidata.appointment_service.repository.AppointmentRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.hospidata.appointment_service.mapper.AppointmentMapper;
+import br.com.hospidata.appointment_service.repository.OutboxEventRepository;
+import br.com.hospidata.appointment_service.service.exceptions.ResourceNotFoundException;
+import br.com.hospidata.appointment_service.utils.JsonUtils;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AppointmentService {
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository repository;
+    private final OutboxEventRepository outboxEventRepository;
     private final KafkaTemplate<String, Appointment> kafkaTemplate;
     private static final String KAFKA_TOPIC = "notification-topic";
+    private final AppointmentMapper mapper;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, KafkaTemplate<String, Appointment> kafkaTemplate) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentService(AppointmentRepository repository, OutboxEventRepository outboxEventRepository , KafkaTemplate<String, Appointment> kafkaTemplate , AppointmentMapper mapper) {
+        this.repository = repository;
+        this.outboxEventRepository = outboxEventRepository;
         this.kafkaTemplate = kafkaTemplate;
+        this.mapper = mapper;
     }
 
-    public Appointment createAppointment(Appointment appointment) {
+    public Appointment createAppointment( Appointment appointment) {
         LocalDateTime now = LocalDateTime.now();
+
         appointment.setCreatedAt(now);
         appointment.setLastUpdatedAt(now);
-        appointment.setFirstScheduledDate(appointment.getScheduledDate());
         appointment.setStatus(AppointmentStatus.SCHEDULED);
 
-        Appointment savedAppointment = appointmentRepository.save(appointment);
+         var appointmentSave = repository.save(appointment);
 
-        kafkaTemplate.send(KAFKA_TOPIC, savedAppointment);
+         var appointmentNotification = mapper.toNotification(appointmentSave);
 
-        return savedAppointment;
+        outboxEventRepository.save(new OutboxEvent(
+                "Appointment",
+                appointmentSave.getId(),
+                JsonUtils.toJson(appointmentNotification),
+                "APPOINTMENT_CREATED",
+                now,
+                false
+        ));
+
+        return appointmentSave;
     }
 
-    public Optional<Appointment> findAppointmentById(Long id) {
-        return appointmentRepository.findById(id);
-    }
+    public Appointment updateAppointment(UUID id, @Valid AppointmentUpdateRequest appointmentUpdateRequest) {
+        Appointment appointment = repository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Appointment", "id", id.toString()));
 
-    public List<Appointment> findAllAppointments() {
-        return appointmentRepository.findAll();
-    }
-
-    public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
-        Appointment existingAppointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found with id: " + id));
-
-        existingAppointment.setScheduledDate(appointmentDetails.getScheduledDate());
-        existingAppointment.setStatus(appointmentDetails.getStatus());
-        existingAppointment.setLastUpdatedAt(LocalDateTime.now());
-
-        Appointment updatedAppointment = appointmentRepository.save(existingAppointment);
-
-        kafkaTemplate.send(KAFKA_TOPIC, updatedAppointment);
-
-        return updatedAppointment;
-    }
-
-    public void cancelAppointment(Long id) {
-        Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found with id: " + id));
-
-        appointment.setStatus(AppointmentStatus.CANCELED);
         appointment.setLastUpdatedAt(LocalDateTime.now());
+        appointment.setStatus(AppointmentStatus.SCHEDULED);
 
-        Appointment canceledAppointment = appointmentRepository.save(appointment);
+        updateAppointment(appointment, appointmentUpdateRequest);
 
-        kafkaTemplate.send(KAFKA_TOPIC, canceledAppointment);
+        var appointmentNotification = mapper.toNotification(appointment);
+        outboxEventRepository.save(new OutboxEvent(
+                "Appointment",
+                appointment.getId(),
+                JsonUtils.toJson(appointmentNotification),
+                "APPOINTMENT_UPDATED",
+                appointment.getLastUpdatedAt(),
+                false
+        ));
+
+        return repository.save(appointment);
+    }
+
+    public void updateAppointment(Appointment appointment, AppointmentUpdateRequest appointmentUpdateRequest) {
+        appointment.setLastUpdatedAt(LocalDateTime.now());
+        appointment.setStatus(appointmentUpdateRequest.status());
+        appointment.setScheduledDate(appointmentUpdateRequest.scheduledDate());
+        appointment.setDescription(appointmentUpdateRequest.description());
+
+        if (appointmentUpdateRequest.doctorId() != null) {
+            appointment.setDoctorId(appointmentUpdateRequest.doctorId());
+            appointment.setDoctorName(appointmentUpdateRequest.doctorName());
+            appointment.setDoctorEmail(appointmentUpdateRequest.doctorEmail());
+        }
+
+        if (appointmentUpdateRequest.patientId() != null) {
+            appointment.setPatientId(appointmentUpdateRequest.patientId());
+            appointment.setPatientName(appointmentUpdateRequest.patientName());
+            appointment.setPatientEmail(appointmentUpdateRequest.patientEmail());
+        }
+
+    };
+
+    public List<Appointment> getAllAppointments(Pageable pageable) {
+        return repository.findAll();
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return repository.findAll();
+    }
+
+    public List<Appointment> searchAppointments(UUID patientId, UUID doctorId) {
+        if (patientId != null && doctorId != null) {
+            List<Appointment> result = repository.findByPatientIdAndDoctorId(patientId, doctorId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException(
+                        "No Appointment found for patient ID: " + patientId + " and doctor ID: " + doctorId
+                );
+            }
+            return result;
+        } else if (patientId != null) {
+            List<Appointment> result = repository.findByPatientId(patientId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found for patient with ID: " + patientId);
+            }
+            return result;
+        } else if (doctorId != null) {
+            List<Appointment> result = repository.findByDoctorId(doctorId);
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found for doctor with ID: " + doctorId);
+            }
+            return result;
+        } else {
+            List<Appointment> result = getAllAppointments();
+            if (result.isEmpty()) {
+                throw new ResourceNotFoundException("No Appointment found");
+            }
+            return result;
+        }
+
+    }
+
+    public Appointment getAppointmentById(UUID id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Appointment", "id", id.toString()));
     }
 }

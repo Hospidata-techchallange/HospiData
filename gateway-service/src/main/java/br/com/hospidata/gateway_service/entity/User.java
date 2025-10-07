@@ -2,16 +2,20 @@ package br.com.hospidata.gateway_service.entity;
 
 import br.com.hospidata.gateway_service.entity.enums.Role;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_users")
+@SQLDelete(sql = "UPDATE tb_users SET active = false WHERE id_user = ?")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user")
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -34,11 +38,11 @@ public class User {
     @Column(nullable = false)
     private Boolean active = true;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

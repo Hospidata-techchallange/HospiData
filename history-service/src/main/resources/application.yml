@@ -1,14 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/history_schema
-    username: hospidata-user
-    password: password
+    url: ${SPRING_DATASOURCE_URL:jdbc:mariadb://localhost:3306/history_schema}
+    username: ${SPRING_DATASOURCE_USERNAME:hospidata-user}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
     driver-class-name: org.mariadb.jdbc.Driver
-
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,3 +12,9 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.MariaDBDialect
+  graphql:
+    graphiql:
+      enabled: true
+
+jwt:
+  secret: ${JWT_SECRET:b6b096c3-e08f-40dd-b1f3-f8ff1711ec6e}

@@ -1,4 +1,4 @@
-FROM bitnami/kafka:3.4
+FROM bitnamilegacy/kafka:3.4
 
 ENV HOSTNAME=hospidata-kafka
 

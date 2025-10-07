@@ -1,0 +1,55 @@
+enum AppointmentStatus {
+    SCHEDULED
+    CANCELED
+    COMPLETED
+}
+
+type AppointmentResponse {
+    id: ID!
+    patientId: ID!
+    patientName: String!
+    patientEmail: String!
+    doctorId: ID!
+    doctorName: String!
+    doctorEmail: String!
+    status: AppointmentStatus!
+    firstScheduledDate: String
+    scheduledDate: String
+    createdAt: String!
+    lastUpdatedAt: String
+}
+
+type History {
+    id: ID!
+    appointmentId : ID!
+    patientId: ID!
+    doctorId: ID!
+    patientName: String
+    patientEmail: String
+    doctorName: String
+    doctorEmail: String
+    description: String
+    createdAt: String
+}
+
+type Query {
+
+    appointmentById(
+        id : ID!
+    ) : AppointmentResponse!
+
+    appointmentSearch(
+        patientId: ID
+        doctorId: ID
+    ) : [AppointmentResponse!]!
+
+    allAppointments: [AppointmentResponse!]!
+
+    historySearch(
+        appointmentId: ID
+        patientId: ID
+        doctorId: ID
+    ): [History!]!
+
+    allHistories: [History!]!
+}
